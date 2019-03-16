@@ -268,7 +268,9 @@ namespace thisMainFile {
                 }
             }
 
-            if (varLine.find("boost"sv) != std::string::npos) {
+            /*包含 boost 但是不包含 boost\\ */
+            if ((varLine.find("boost"sv) != std::string::npos) &&
+                (varLine.find(u8R"(boost\\)"sv) == std::string::npos)) {
 
                 const static std::regex  varReplaceRegex{
                     u8R"rrr((["<(])boost([/\\]))rrr"s ,
