@@ -226,10 +226,37 @@ namespace thisMainFile {
                     std::map< std::string, std::function<std::string(std::string_view)> >;
                 const static convert_string_map_t varConvertStringMap = []()->convert_string_map_t {
                     convert_string_map_t varAns;
-                    varAns.emplace("#define "s, [](std::string_view)->std::string {
-                        return u8R"(#ifndef /*added ...*/
-#define /*added ...*/
+
+                    varAns.emplace("#define BOOST_ATOMIC_SOURCE"s, [](std::string_view)->std::string {
+                        return u8R"(#ifndef BOOST_ATOMIC_SOURCE/*added ...*/
+#define BOOST_ATOMIC_SOURCE/*added ...*/
 #endif  /*added ...*/)"s;  });
+
+                    varAns.emplace("#define BOOST_CHRONO_SOURCE"s, [](std::string_view)->std::string {
+                        return u8R"(#ifndef BOOST_CHRONO_SOURCE/*added ...*/
+#define BOOST_CHRONO_SOURCE/*added ...*/
+#endif  /*added ...*/)"s;  });
+
+                    varAns.emplace("#define BOOST_DATE_TIME_SOURCE"s, [](std::string_view)->std::string {
+                        return u8R"(#ifndef BOOST_DATE_TIME_SOURCE/*added ...*/
+#define BOOST_DATE_TIME_SOURCE/*added ...*/
+#endif  /*added ...*/)"s;  });
+
+                    varAns.emplace("#define BOOST_SYSTEM_SOURCE"s, [](std::string_view)->std::string {
+                        return u8R"(#ifndef BOOST_SYSTEM_SOURCE/*added ...*/
+#define BOOST_SYSTEM_SOURCE/*added ...*/
+#endif  /*added ...*/)"s;  });
+
+                    varAns.emplace("#define BOOST_THREAD_BUILD_DLL"s, [](std::string_view)->std::string {
+                        return u8R"(#ifndef BOOST_THREAD_BUILD_DLL/*added ...*/
+#define BOOST_THREAD_BUILD_DLL/*added ...*/
+#endif  /*added ...*/)"s;  });
+
+                    varAns.emplace("#define BOOST_CONTEXT_SOURCE"s, [](std::string_view)->std::string {
+                        return u8R"(#ifndef BOOST_CONTEXT_SOURCE/*added ...*/
+#define BOOST_CONTEXT_SOURCE/*added ...*/
+#endif  /*added ...*/)"s;  });
+
                     return std::move(varAns);
                 }();
                 auto varPos = varConvertStringMap.find(varLine);
