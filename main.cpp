@@ -170,7 +170,7 @@ namespace thisMainFile {
                 = varI.from.extension().wstring();
             const static
                 std::wregex varCheckIsNotBinary{
-                    LR"121([.](?:hpp)|(?:h)|(?:cxx)|(?:cpp)|(?:c)|(?:hxx)|(?:txt))121"s ,
+                    LR"121([.](?:(?:hpp)|(?:h)|(?:cxx)|(?:cpp)|(?:c)|(?:hxx)|(?:txt)))121"s ,
                     std::regex::ECMAScript | std::regex::icase
             };
             if (!std::regex_match(varExtension, varCheckIsNotBinary)) {
@@ -224,6 +224,7 @@ namespace thisMainFile {
             if ((!varFileLines.empty()) && varFileLines.back().empty()) {/*尝试替换孤行#define*/
                 using convert_string_map_t =
                     std::map< std::string, std::function<std::string(std::string_view)> >;
+
                 const static convert_string_map_t varConvertStringMap = []()->convert_string_map_t {
                     convert_string_map_t varAns;
 
@@ -259,6 +260,7 @@ namespace thisMainFile {
 
                     return std::move(varAns);
                 }();
+
                 auto varPos = varConvertStringMap.find(varLine);
                 if (varPos != varConvertStringMap.end()) {
                     varOut << varPos->second(varLine) << getEndl();
