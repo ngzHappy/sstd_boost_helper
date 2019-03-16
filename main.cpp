@@ -82,9 +82,44 @@ int main(int argc, char ** argv) {
         return -1;
     }
 
-    auto varCopyInfo = thisMainFile::createCopyInfo(argv[1], argv[2]);
-    thisMainFile::createDirs(varCopyInfo);
-    thisMainFile::copyFiles(varCopyInfo);
+    fs::path varFrom = argv[1];
+    fs::path varTo = argv[2];
+
+    {
+        auto varCopyInfo = thisMainFile::createCopyInfo(varFrom, varTo);
+        thisMainFile::createDirs(varCopyInfo);
+        thisMainFile::copyFiles(varCopyInfo);
+    }
+
+    {
+        thisMainFile::ofstream varOfs{ varTo / "sstd"sv / "boost"sv / "config"sv / "user.hpp"sv };
+        varOfs << "\xEF\xBB\xBF"sv;
+        varOfs << u8R"aaa(
+#pragma once
+
+#ifndef BOOST_ALL_DYN_LINK
+#define BOOST_ALL_DYN_LINK               (1u)
+#endif 
+
+#ifndef BOOST_ALL_NO_LIB
+#define BOOST_ALL_NO_LIB                 (1u)
+#endif
+
+#if defined(SSTD_BUILD_BOOST_SOURCE)
+
+#if defined(_WIN32)
+
+#ifndef BOOST_USE_WINDOWS_H
+#define BOOST_USE_WINDOWS_H              (1u)
+#endif  
+
+#endif  
+
+#endif
+
+)aaa"sv;
+    }
+
 
     return 0;
 
