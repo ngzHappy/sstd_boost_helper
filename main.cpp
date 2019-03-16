@@ -117,6 +117,13 @@ int main(int argc, char ** argv) {
 
 #endif
 
+//BOOST_ATOMIC_SOURCE
+//BOOST_CHRONO_SOURCE
+//BOOST_DATE_TIME_SOURCE
+//BOOST_SYSTEM_SOURCE
+//BOOST_THREAD_BUILD_DLL
+//BOOST_CONTEXT_SOURCE
+
 )aaa"sv;
     }
 
